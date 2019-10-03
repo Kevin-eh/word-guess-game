@@ -60,8 +60,11 @@ document.onkeyup = function (event) {
   checktarget(event.key)
   var userGuess = event.key
 
+  // dashing[g] !== "_"
+  // if (userguess !== guessed) {
   for (var g = 0; g < targetword.length; g++) {
-    if (targetword[g] === userGuess) {
+
+    if (targetword[g] === userGuess && dashing[g] === "_") {
       dashing[g] = userGuess;
       remainingLetters--;
       console.log(userGuess)
@@ -70,6 +73,7 @@ document.onkeyup = function (event) {
       guessed.push(userGuess);
       guessedtext.textContent = "Guessed: " + guessed
     }
+
     else {
       console.log("no"); lives--;
       livesText.textContent = "lives: " + lives;
@@ -78,6 +82,7 @@ document.onkeyup = function (event) {
     }
   }
 }
+// }
 
 
 //take in the event key
