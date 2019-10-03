@@ -3,6 +3,12 @@
 // create an array out of that word
 // create function that takes in a word and outputs an array of equal length
 
+var lives = 10;
+var livesText = document.getElementById("lives-text");
+livesText.textContent = "lives: " + lives;
+
+
+
 var wordchoices = [
   "slake",
   "luxuriant",
@@ -19,13 +25,20 @@ console.log(finalwordchoice);
 
 var targetword = finalwordchoice.split("")
 var dashing = []
+var guessed = []
 
+var remainingLetters = targetword.length;
+var remainingLettersText = document.getElementById("remainingLetters-text");
+remainingLettersText.textContent = "remaining letters:" + remainingLetters;
+
+var guessedtext = document.getElementById("guessedtext")
+guessedtext.textContent = "Guessed: " + guessed
 
 var finalwordtext = document.getElementById("finalwordchoice-text");
 
 function underscores(targetword) {
   for (var k = 0; k < targetword.length; k++) {
-    dashing.push("_")
+    dashing[k] = "_";
   }
 }
 
@@ -45,6 +58,25 @@ finalwordtext.textContent = "the word is " + dashing.join(" ");
 function checktarget(letter) { }
 document.onkeyup = function (event) {
   checktarget(event.key)
+  var userGuess = event.key
+
+  for (var g = 0; g < targetword.length; g++) {
+    if (targetword[g] === userGuess) {
+      dashing[g] = userGuess;
+      remainingLetters--;
+      console.log(userGuess)
+      finalwordtext.textContent = "the word is " + dashing.join(" ");
+      remainingLettersText.textContent = "remaining letters:" + remainingLetters;
+      guessed.push(userGuess);
+      guessedtext.textContent = "Guessed: " + guessed
+    }
+    else {
+      console.log("no"); lives--;
+      livesText.textContent = "lives: " + lives;
+      guessed.push(userGuess);
+      guessedtext.textContent = "Guessed: " + guessed
+    }
+  }
 }
 
 
