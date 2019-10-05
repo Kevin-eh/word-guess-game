@@ -9,6 +9,7 @@ livesText.textContent = "lives: " + lives;
 
 
 
+
 var wordchoices = [
   "slake",
   "luxuriant",
@@ -34,6 +35,9 @@ remainingLettersText.textContent = "remaining letters:" + remainingLetters;
 var guessedtext = document.getElementById("guessedtext")
 guessedtext.textContent = "Guessed: " + guessed
 
+var youdidit = document.getElementById("youdidit");
+
+
 var finalwordtext = document.getElementById("finalwordchoice-text");
 
 function underscores(targetword) {
@@ -55,6 +59,9 @@ finalwordtext.textContent = "the word is " + dashing.join(" ");
 //take in user input
 //compare that to our targetword using a for loop
 
+
+
+
 function checktarget(letter) { }
 document.onkeyup = function (event) {
   checktarget(event.key)
@@ -62,7 +69,13 @@ document.onkeyup = function (event) {
 
   // dashing[g] !== "_"
   // if (userguess !== guessed) {
+  let isRight = false;
+  guessed.push(userGuess);
+  guessedtext.textContent = "Guessed: " + guessed
+
   for (var g = 0; g < targetword.length; g++) {
+
+
 
     if (targetword[g] === userGuess && dashing[g] === "_") {
       dashing[g] = userGuess;
@@ -70,19 +83,29 @@ document.onkeyup = function (event) {
       console.log(userGuess)
       finalwordtext.textContent = "the word is " + dashing.join(" ");
       remainingLettersText.textContent = "remaining letters:" + remainingLetters;
-      guessed.push(userGuess);
-      guessedtext.textContent = "Guessed: " + guessed
+
+      isRight = true;
     }
 
-    else {
-      console.log("no"); lives--;
-      livesText.textContent = "lives: " + lives;
-      guessed.push(userGuess);
-      guessedtext.textContent = "Guessed: " + guessed
-    }
+    // else {
+    //   console.log("no"); lives--;
+    //   livesText.textContent = "lives: " + lives;
+    //   guessed.push(userGuess);
+    //   guessedtext.textContent = "Guessed: " + guessed
+    // }
   }
+  if (isRight === false) {
+    console.log("no"); lives--;
+    livesText.textContent = "lives: " + lives;
+    // guessed.push(userGuess);
+    // guessedtext.textContent = "Guessed: " + guessed
+  }
+
+  if (remainingLetters == 0) { youdidit.textContent = "YOU DID IT HURRAY FOR YOU!"; }
+  if (lives == 0) { youdidit.textContent = "OH NO YOU LOST! I'M SO SORRY."; }
+
 }
-// }
+
 
 
 //take in the event key
