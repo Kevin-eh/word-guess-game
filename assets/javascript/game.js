@@ -70,40 +70,43 @@ document.onkeyup = function (event) {
   // dashing[g] !== "_"
   // if (userguess !== guessed) {
   let isRight = false;
-  guessed.push(userGuess);
-  guessedtext.textContent = "Guessed: " + guessed
-
-  for (var g = 0; g < targetword.length; g++) {
+  if (remainingLetters > 0 && lives > 0) {
 
 
+    guessed.push(userGuess);
+    guessedtext.textContent = "Guessed: " + guessed
 
-    if (targetword[g] === userGuess && dashing[g] === "_") {
-      dashing[g] = userGuess;
-      remainingLetters--;
-      console.log(userGuess)
-      finalwordtext.textContent = "the word is " + dashing.join(" ");
-      remainingLettersText.textContent = "remaining letters:" + remainingLetters;
+    for (var g = 0; g < targetword.length; g++) {
 
-      isRight = true;
+
+
+      if (targetword[g] === userGuess && dashing[g] === "_") {
+        dashing[g] = userGuess;
+        remainingLetters--;
+        console.log(userGuess)
+        finalwordtext.textContent = "the word is " + dashing.join(" ");
+        remainingLettersText.textContent = "remaining letters:" + remainingLetters;
+
+        isRight = true;
+      }
+
+      // else {
+      //   console.log("no"); lives--;
+      //   livesText.textContent = "lives: " + lives;
+      //   guessed.push(userGuess);
+      //   guessedtext.textContent = "Guessed: " + guessed
+      // }
+    }
+    if (isRight === false) {
+      console.log("no"); lives--;
+      livesText.textContent = "lives: " + lives;
+      // guessed.push(userGuess);
+      // guessedtext.textContent = "Guessed: " + guessed
     }
 
-    // else {
-    //   console.log("no"); lives--;
-    //   livesText.textContent = "lives: " + lives;
-    //   guessed.push(userGuess);
-    //   guessedtext.textContent = "Guessed: " + guessed
-    // }
+    if (remainingLetters == 0) { youdidit.textContent = "YOU DID IT HURRAY FOR YOU! Refresh for even more good times."; }
+    if (lives == 0) { youdidit.textContent = "OH NO YOU LOST! I'M SO SORRY. Refresh and try again."; }
   }
-  if (isRight === false) {
-    console.log("no"); lives--;
-    livesText.textContent = "lives: " + lives;
-    // guessed.push(userGuess);
-    // guessedtext.textContent = "Guessed: " + guessed
-  }
-
-  if (remainingLetters == 0) { youdidit.textContent = "YOU DID IT HURRAY FOR YOU!"; }
-  if (lives == 0) { youdidit.textContent = "OH NO YOU LOST! I'M SO SORRY."; }
-
 }
 
 
@@ -113,3 +116,10 @@ document.onkeyup = function (event) {
 //if there is a match, replace index with corresponding letter
 //if no match at the end of the loop, decrease score
 //if the letter has already been guessed, do nothing
+
+
+//things that still needed to get done
+// 1. don't let user input anything other than a letter
+// 2. don't let user reguess letter already guessed
+// 3. refresh page upon win/loss showing win/loss screen
+// 4. restart game upon win/loss
